@@ -16,26 +16,36 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 
-public class Intake extends SubsystemBase {
-    private SparkFlex m_IntakeMotor;
-    private SparkClosedLoopController m_IntakePID;
+public class Internal extends SubsystemBase {
+    private SparkFlex m_Launcher;
+    private SparkFlex m_Loader;
+    private SparkMax m_Conveyor;
+    private SparkClosedLoopController m_LauncherPID;
 
 
-public Intake() {
-    m_IntakeMotor = new SparkFlex(8, MotorType.kBrushless);
-    
-    m_IntakePID = m_IntakeMotor.getClosedLoopController();
+public Internal() {
+    m_Launcher = new SparkFlex(9, MotorType.kBrushless);
+    m_LauncherPID = m_Launcher.getClosedLoopController();
     SparkMaxConfig config = new SparkMaxConfig();
     config.closedLoop.p(0.08).i(0).d(0);
-    m_IntakeMotor.configure(config, ResetMode.kResetSafeParameters,
+    m_Launcher.configure(config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
     
+    m_Loader = new SparkFlex(10, MotorType.kBrushless);
 
-    
+    m_Conveyor = new SparkMax(11, MotorType.kBrushless);   
+    }
+
+public void spinLauncher(double speed) {
+    m_LauncherPID.setSetpoint(speed, ControlType.kVelocity);
+    } 
+
+public void spinLoader(double speed) {
+    m_Loader.set(speed);
     }
     
-public void spinIntake(double speed) {
-    m_IntakePID.setSetpoint(speed, ControlType.kVelocity);
-    } 
+public void spinConveyor(double speed) {
+    m_Conveyor.set(speed);
+    }
 
 }

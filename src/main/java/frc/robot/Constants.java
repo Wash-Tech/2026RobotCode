@@ -77,4 +77,10 @@ public final class Constants {
     public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+  
+  public static final class OIConstants {
+    public static final int kDriverControllerPort = 0;
+    //public static final double kDriveDeadband = 0.05;
+     public static final double kDriveDeadband = 0.10;  // KPH added 2/8/22
+  }
 }

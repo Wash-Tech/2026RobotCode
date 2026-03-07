@@ -1,17 +1,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Internal;
 
-public class InIntake extends Command {
-    private final Intake m_intake;
+public class Launchfuel extends Command {
+    private final Internal m_Internal;
 
-  /** Creates a new ExtendArm. */
-  public InIntake(Intake subsystem) {
+  public Launchfuel(Internal subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_intake = subsystem;
-    addRequirements(m_intake);
+    m_Internal = subsystem;
+    addRequirements(m_Internal);
   }
     
 
@@ -21,18 +19,19 @@ public class InIntake extends Command {
     //m_intake.grabPosition();
   }
 
-
   @Override
   public void execute() {
-    m_intake.spinIntake(5);
+    m_Internal.spinLauncher(5);
+    m_Internal.spinConveyor(5);
+    m_Internal.spinLoader(5);
   }
-
 
 
  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.spinIntake(0);
+    m_Internal.spinLauncher(0);
+    //do we this?
 
    }
 
