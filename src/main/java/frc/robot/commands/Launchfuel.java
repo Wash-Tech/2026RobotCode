@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Internal;
+import frc.robot.Constants;
 
 public class Launchfuel extends Command {
     private final Internal m_Internal;
@@ -21,9 +22,9 @@ public class Launchfuel extends Command {
 
   @Override
   public void execute() {
-    m_Internal.spinLauncher(5);
-    m_Internal.spinConveyor(5);
-    m_Internal.spinLoader(5);
+    m_Internal.spinLauncher(Constants.InternalConstants.kLauncherSpeed);
+    m_Internal.spinConveyor(Constants.InternalConstants.kConveyorSpeed);
+    m_Internal.spinLoader(Constants.InternalConstants.kLoaderSpeed);
   }
 
 
@@ -31,6 +32,8 @@ public class Launchfuel extends Command {
   @Override
   public void end(boolean interrupted) {
     m_Internal.spinLauncher(0);
+    m_Internal.spinConveyor(0);
+    m_Internal.spinLoader(0);
     //do we this?
 
    }

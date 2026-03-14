@@ -9,6 +9,8 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.InIntake;
 import frc.robot.commands.Launchfuel;
+import frc.robot.commands.OutIntake;
+import frc.robot.commands.Startlauncher;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -43,7 +45,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    CameraServer.startAutomaticCapture();
+    //CameraServer.startAutomaticCapture();
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
@@ -73,10 +75,16 @@ public class RobotContainer {
         () -> m_robotDrive.setX(),m_robotDrive));
         
         Trigger abutton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-        abutton.whileTrue(new InIntake(m_intake));
+        abutton.whileTrue(new OutIntake(m_intake));
+        Trigger rbumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+        rbumper.whileTrue(new InIntake(m_intake));
+
 
         Trigger ybutton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
         ybutton.whileTrue(new Launchfuel(m_internal));
+
+        Trigger lbumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+        lbumper.whileTrue(new Startlauncher(m_internal));
   }
 
   /**

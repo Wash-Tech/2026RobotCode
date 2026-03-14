@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Internal;
+import frc.robot.Constants;
 
 public class Startlauncher extends Command {
     private final Internal m_Internal;
@@ -21,7 +22,7 @@ public class Startlauncher extends Command {
 
   @Override
   public void execute() {
-    m_Internal.spinLauncher(5);
+    m_Internal.spinLauncher(Constants.InternalConstants.kLauncherSpeed);
   }
 
  // Called once the command ends or is interrupted.

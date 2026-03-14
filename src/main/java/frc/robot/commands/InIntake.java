@@ -24,7 +24,9 @@ public class InIntake extends Command {
 
   @Override
   public void execute() {
-    m_intake.spinIntake(5);
+    m_intake.spinIntake(Constants.IntakeConstants.kIntakeSpeed);
+   
+    //m_intake.spinIntake(0.1);
   }
 
 
@@ -42,4 +44,4 @@ public class InIntake extends Command {
     return false;
   }
 
-}
+} 

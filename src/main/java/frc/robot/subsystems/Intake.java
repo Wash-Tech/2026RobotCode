@@ -15,6 +15,7 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
+import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
     private SparkFlex m_IntakeMotor;
@@ -22,7 +23,7 @@ public class Intake extends SubsystemBase {
 
 
 public Intake() {
-    m_IntakeMotor = new SparkFlex(8, MotorType.kBrushless);
+    m_IntakeMotor = new SparkFlex(Constants.IntakeConstants.kIntakeCanId, MotorType.kBrushless);
     
     m_IntakePID = m_IntakeMotor.getClosedLoopController();
     SparkMaxConfig config = new SparkMaxConfig();
@@ -36,6 +37,7 @@ public Intake() {
     
 public void spinIntake(double speed) {
     m_IntakePID.setSetpoint(speed, ControlType.kVelocity);
+    //m_IntakeMotor.set(speed);
     } 
 
 }

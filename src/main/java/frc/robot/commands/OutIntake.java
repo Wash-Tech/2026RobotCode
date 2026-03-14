@@ -22,7 +22,7 @@ public class OutIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.spinIntake(5);
+    m_intake.spinIntake(-Constants.IntakeConstants.kIntakeSpeed);
   }
  // Called once the command ends or is interrupted.
   @Override
@@ -30,6 +30,8 @@ public class OutIntake extends Command {
     m_intake.spinIntake(0);
 
    }
-
-
+  @Override
+  public boolean isFinished() {
+    return false;
   }
+}

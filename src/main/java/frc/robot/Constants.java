@@ -83,4 +83,18 @@ public final class Constants {
     //public static final double kDriveDeadband = 0.05;
      public static final double kDriveDeadband = 0.10;  // KPH added 2/8/22
   }
+  public static final class InternalConstants {
+    public static final int kLauncherLeftCanId = 9;
+    public static final int kLauncherRightCanId = 10;
+    public static final int kLoaderCanId = 11;
+    public static final int kConveyorCanId = 12;
+
+    public static final double kLauncherSpeed = 0.5;
+    public static final double kLoaderSpeed = 0.5;
+    public static final double kConveyorSpeed = 0.5;
+  }
+public static final class IntakeConstants {
+    public static final int kIntakeCanId = 13;
+    public static final double kIntakeSpeed = 0.5;
+}
 }
