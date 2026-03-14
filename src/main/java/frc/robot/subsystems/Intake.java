@@ -26,7 +26,7 @@ public Intake() {
     m_IntakeMotor = new SparkFlex(Constants.IntakeConstants.kIntakeCanId, MotorType.kBrushless);
     
     m_IntakePID = m_IntakeMotor.getClosedLoopController();
-    SparkMaxConfig config = new SparkMaxConfig();
+    SparkFlexConfig config = new SparkFlexConfig();
     config.closedLoop.p(0.08).i(0).d(0);
     m_IntakeMotor.configure(config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
@@ -38,6 +38,7 @@ public Intake() {
 public void spinIntake(double speed) {
     m_IntakePID.setSetpoint(speed, ControlType.kVelocity);
     //m_IntakeMotor.set(speed);
+
     } 
 
 }

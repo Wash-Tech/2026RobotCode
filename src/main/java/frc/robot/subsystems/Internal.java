@@ -34,7 +34,7 @@ public Internal() {
     m_LauncherPIDleft = m_Launcherleft.getClosedLoopController();
     m_LauncherPIDright = m_Launcherright.getClosedLoopController();
     SparkMaxConfig config = new SparkMaxConfig();
-    config.closedLoop.p(0.08).i(0).d(0);
+    config.closedLoop.p(0.1).i(0).d(0);
     m_Launcherleft.configure(config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
     m_Launcherright.configure(config, ResetMode.kResetSafeParameters,

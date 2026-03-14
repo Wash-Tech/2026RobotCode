@@ -24,7 +24,7 @@ public class InIntake extends Command {
 
   @Override
   public void execute() {
-    m_intake.spinIntake(Constants.IntakeConstants.kIntakeSpeed);
+    m_intake.spinIntake(Constants.IntakeConstants.kIntakeSpeed);    
    
     //m_intake.spinIntake(0.1);
   }
