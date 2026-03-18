@@ -22,7 +22,7 @@ public class Launchfuel extends Command {
 
   @Override
   public void execute() {
-    m_Internal.spinLauncher(Constants.InternalConstants.kLauncherSpeed);
+    m_Internal.spinLauncher(Constants.ShooterSubsystemConstants.FlywheelSetpoints.kShootRpm);
     m_Internal.spinConveyor(Constants.InternalConstants.kConveyorSpeed);
     m_Internal.spinLoader(Constants.InternalConstants.kLoaderSpeed);
   }

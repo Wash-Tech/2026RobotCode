@@ -24,9 +24,10 @@ public class InIntake extends Command {
 
   @Override
   public void execute() {
-    m_intake.spinIntake(Constants.IntakeConstants.kIntakeSpeed);    
+    //m_intake.spinIntake(Constants.IntakeConstants.kIntakeSpeed);   
+    // disabled until PID is functioning 
    
-    //m_intake.spinIntake(0.1);
+    m_intake.spinIntake(0.4);
   }
 
 
@@ -34,7 +35,8 @@ public class InIntake extends Command {
  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.spinIntake(0);
+    //m_intake.spinIntake(0);
+    //m_intake.stopIntake();
 
    }
 

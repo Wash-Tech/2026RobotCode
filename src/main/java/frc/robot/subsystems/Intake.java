@@ -20,6 +20,7 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
     private SparkFlex m_IntakeMotor;
     private SparkClosedLoopController m_IntakePID;
+    private RelativeEncoder m_IntakeEncoder;
 
 
 public Intake() {
@@ -30,15 +31,24 @@ public Intake() {
     config.closedLoop.p(0.08).i(0).d(0);
     m_IntakeMotor.configure(config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
+    m_IntakeEncoder = m_IntakeMotor.getEncoder();
+
+    m_IntakeEncoder.setPosition(0);
     
 
     
     }
     
 public void spinIntake(double speed) {
-    m_IntakePID.setSetpoint(speed, ControlType.kVelocity);
-    //m_IntakeMotor.set(speed);
+    //m_IntakePID.setSetpoint(speed, ControlType.kMAXMotionVelocityControl);
+    m_IntakeMotor.set(speed);
 
     } 
+
+public void stopIntake() {
+    m_IntakeMotor.stopMotor();
+
+
+}
 
 }

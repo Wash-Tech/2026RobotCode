@@ -19,35 +19,66 @@ import frc.robot.Constants;
 
 public class Internal extends SubsystemBase {
    
-    private SparkFlex m_Launcherleft;
-    private SparkFlex m_Launcherright;
+    private SparkFlex m_LauncherMain;
+    private SparkFlex m_LauncherFollower;
     private SparkFlex m_Loader;
     private SparkMax m_Conveyor;
-    private SparkClosedLoopController m_LauncherPIDleft;
-    private SparkClosedLoopController m_LauncherPIDright;
-    
+    private SparkClosedLoopController m_LauncherController;
+    private RelativeEncoder m_LauncherEncoder;
+    private double flywheelTargetVelocity;
 
 public Internal() {
-    m_Launcherleft = new SparkFlex(Constants.InternalConstants.kLauncherLeftCanId, MotorType.kBrushless);
-    m_Launcherright = new SparkFlex(Constants.InternalConstants.kLauncherRightCanId, MotorType.kBrushless);
+    //launcher declarations
+    m_LauncherMain = new SparkFlex(Constants.ShooterSubsystemConstants.kFlywheelMotorCanId, MotorType.kBrushless);
+    
+    m_LauncherController = m_LauncherMain.getClosedLoopController();
+    m_LauncherEncoder = m_LauncherMain.getEncoder();
 
-    m_LauncherPIDleft = m_Launcherleft.getClosedLoopController();
-    m_LauncherPIDright = m_Launcherright.getClosedLoopController();
-    SparkMaxConfig config = new SparkMaxConfig();
-    config.closedLoop.p(0.1).i(0).d(0);
-    m_Launcherleft.configure(config, ResetMode.kResetSafeParameters,
-        PersistMode.kPersistParameters);
-    m_Launcherright.configure(config, ResetMode.kResetSafeParameters,
-        PersistMode.kPersistParameters);
+    //old code commented out DQ 3/18/2026
+    //SparkMaxConfig config = new SparkMaxConfig();
+    //config.closedLoop.p(0.1).i(0).d(0);
+    //m_LauncherMain.configure(config, ResetMode.kResetSafeParameters,
+    //    PersistMode.kPersistParameters);
+    m_LauncherFollower = new SparkFlex(Constants.ShooterSubsystemConstants.kFlywheelFollowerMotorCanId, MotorType.kBrushless);
 
+
+    //loader and conveyor declarations
     m_Loader = new SparkFlex(Constants.InternalConstants.kLoaderCanId, MotorType.kBrushless);
 
     m_Conveyor = new SparkMax(Constants.InternalConstants.kConveyorCanId, MotorType.kBrushless);   
+      // Member variables for subsystem state management
+    flywheelTargetVelocity = 0.0;
+
+    /*
+     * Apply the appropriate configurations to the SPARKs.
+     *
+     * kResetSafeParameters is used to get the SPARK to a known state. This
+     * is useful in case the SPARK is replaced.
+     *
+     * kPersistParameters is used to ensure the configuration is not lost when
+     * the SPARK loses power. This is useful for power cycles that may occur
+     * mid-operation.
+     */
+    m_LauncherMain.configure(
+        Configs.ShooterSubsystem.flywheelConfig,
+        ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+    m_LauncherFollower.configure(
+        Configs.ShooterSubsystem.flywheelFollowerConfig,
+        ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+    m_Loader.configure(
+        Configs.ShooterSubsystem.feederConfig,
+        ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+
+    // Zero flywheel encoder on initialization
+    m_LauncherEncoder.setPosition(0);    
     }
 
 public void spinLauncher(double speed) {
-    m_LauncherPIDleft.setSetpoint(speed, ControlType.kVelocity);
-    m_LauncherPIDright.setSetpoint(-speed, ControlType.kVelocity);
+    m_LauncherController.setSetpoint(speed, ControlType.kMAXMotionVelocityControl);
+    flywheelTargetVelocity = speed;
     } 
 
 public void spinLoader(double speed) {

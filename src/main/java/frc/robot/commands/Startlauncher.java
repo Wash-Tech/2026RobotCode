@@ -22,7 +22,7 @@ public class Startlauncher extends Command {
 
   @Override
   public void execute() {
-    m_Internal.spinLauncher(Constants.InternalConstants.kLauncherSpeed);
+    m_Internal.spinLauncher(Constants.ShooterSubsystemConstants.FlywheelSetpoints.kShootRpm);
   }
 
  // Called once the command ends or is interrupted.

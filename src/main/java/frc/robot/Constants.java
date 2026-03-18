@@ -17,12 +17,18 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+      public static final class NeoMotorConstants {
+      public static final double kFreeSpeedRpm = 5676;
+      public static final double kVortexKv = 565;   // rpm/V
+    }
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
     public static final double kMaxSpeedMetersPerSecond = 4.8;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
     //maybe slow this down?
+
+
 
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(21.5); //2.10.2025
@@ -43,16 +49,20 @@ public final class Constants {
 
     // SPARK MAX CAN IDs
     public static final int kFrontLeftDrivingCanId = 1;
-    public static final int kRearLeftDrivingCanId = 7;
-    public static final int kFrontRightDrivingCanId = 3;
+    public static final int kRearLeftDrivingCanId = 3;
+    public static final int kFrontRightDrivingCanId = 7;
     public static final int kRearRightDrivingCanId = 5;
 
     public static final int kFrontLeftTurningCanId = 2;
-    public static final int kRearLeftTurningCanId = 8;
-    public static final int kFrontRightTurningCanId = 4;
+    public static final int kRearLeftTurningCanId = 4;
+    public static final int kFrontRightTurningCanId = 8;
     public static final int kRearRightTurningCanId = 6;
 
     public static final boolean kGyroReversed = false;
+
+
+        //added to support the flywheel code.
+
   }
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
@@ -74,9 +84,6 @@ public final class Constants {
     public static final double kDriveWheelFreeSpeedRps = (kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters)
         / kDrivingMotorReduction;
   }
-    public static final class NeoMotorConstants {
-    public static final double kFreeSpeedRpm = 5676;
-  }
   
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
@@ -84,17 +91,33 @@ public final class Constants {
      public static final double kDriveDeadband = 0.10;  // KPH added 2/8/22
   }
   public static final class InternalConstants {
-    public static final int kLauncherLeftCanId = 9;
-    public static final int kLauncherRightCanId = 10;
+    //our constants that aren't declared in teh shooter subsystem.
+    //should be depreceated soon.
     public static final int kLoaderCanId = 11;
     public static final int kConveyorCanId = 12;
 
     public static final double kLauncherSpeed = 0.5;
-    public static final double kLoaderSpeed = 0.5;
-    public static final double kConveyorSpeed = 0.5;
+    public static final double kLoaderSpeed = 1.0;
+    public static final double kConveyorSpeed = -0.5;
   }
 public static final class IntakeConstants {
     public static final int kIntakeCanId = 13;
-    public static final double kIntakeSpeed = 2.0;
+    public static final double kIntakeSpeed = 60.0;
 }
+
+public static final class ShooterSubsystemConstants {
+    public static final int kFeederMotorCanId = 11;    // SPARK Flex CAN ID
+    public static final int kFlywheelMotorCanId = 9;  // SPARK Flex CAN ID (Right)
+    public static final int kFlywheelFollowerMotorCanId = 10;  // SPARK Flex CAN ID (Left)
+
+    public static final class FeederSetpoints {
+      public static final double kFeed = 0.95;
+    }
+
+    public static final class FlywheelSetpoints {
+      //default 5000 rpm
+      public static final double kShootRpm = -4000;
+      public static final double kVelocityTolerance = 100;
+    }
+  }
 }
