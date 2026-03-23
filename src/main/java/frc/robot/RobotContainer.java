@@ -51,12 +51,12 @@ public class RobotContainer {
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
             () -> m_robotDrive.drive(
-                //-MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
-                //-MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
-                //-MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                0.3 * MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),   // kph 2/8/24
-                0.3 * MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),   // kph 2/8/24
-                0.3 * -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),  // kph 2/8/24
+                -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
+                //0.3 * MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),   // kph 2/8/24
+                //0.3 * MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),   // kph 2/8/24
+                //0.3 * -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),  // kph 2/8/24
                 true),
             m_robotDrive));
   }
@@ -73,20 +73,20 @@ public class RobotContainer {
   private void configureBindings() {
       new JoystickButton(m_driverController, XboxController.Button.kX.value).whileTrue(new RunCommand(
         () -> m_robotDrive.setX(),m_robotDrive));
-        
-        Trigger abutton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-        abutton.whileTrue(new OutIntake(m_intake));
+
+        Trigger rTrigger = new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0.5);
+        rTrigger.whileTrue(new OutIntake(m_intake));
+
         Trigger rbumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
         rbumper.whileTrue(new InIntake(m_intake));
 
-
-        Trigger ybutton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-        ybutton.whileTrue(new Launchfuel(m_internal));
+        Trigger lTrigger = new Trigger(() -> m_driverController.getRightTriggerAxis() > 0.5);
+        lTrigger.whileTrue(new Launchfuel(m_internal));
 
         Trigger lbumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
         lbumper.whileTrue(new Startlauncher(m_internal));
   }
-
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -94,6 +94,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
+    //TODO: PathPlannerAuto with name from config
     return Autos.exampleAuto(m_exampleSubsystem);
   }
 }

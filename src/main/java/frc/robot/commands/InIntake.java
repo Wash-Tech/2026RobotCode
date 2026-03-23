@@ -36,7 +36,7 @@ public class InIntake extends Command {
   @Override
   public void end(boolean interrupted) {
     //m_intake.spinIntake(0);
-    //m_intake.stopIntake();
+    m_intake.stopIntake();
 
    }
 

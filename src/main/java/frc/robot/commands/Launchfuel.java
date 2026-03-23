@@ -31,7 +31,9 @@ public class Launchfuel extends Command {
  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Internal.spinLauncher(0);
+    //m_Internal.spinLauncher(0);
+    //attempting to let the flywheel spin down.
+    m_Internal.stopmotors();
     m_Internal.spinConveyor(0);
     m_Internal.spinLoader(0);
     //do we this?

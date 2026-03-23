@@ -89,4 +89,9 @@ public void spinConveyor(double speed) {
     m_Conveyor.set(speed);
     }
 
+public void stopmotors() {
+    m_LauncherMain.stopMotor();
+    m_LauncherFollower.stopMotor();
+    }
+
 }
