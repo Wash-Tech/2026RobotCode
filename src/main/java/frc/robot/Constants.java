@@ -24,7 +24,8 @@ public final class Constants {
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double kMaxSpeedMetersPerSecond = 4.8;
+    // public static final double kMaxSpeedMetersPerSecond = 4.8;
+    public static final double kMaxSpeedMetersPerSecond = 15;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
     //maybe slow this down?
 
@@ -91,7 +92,7 @@ public final class Constants {
      public static final double kDriveDeadband = 0.10;  // KPH added 2/8/22
   }
   public static final class InternalConstants {
-    //our constants that aren't declared in teh shooter subsystem.
+    //our constants that aren't declared in the shooter subsystem.
     //should be depreceated soon.
     public static final int kLoaderCanId = 11;
     public static final int kConveyorCanId = 12;
@@ -116,7 +117,8 @@ public static final class ShooterSubsystemConstants {
 
     public static final class FlywheelSetpoints {
       //default 5000 rpm
-      public static final double kShootRpm = -4000;
+      // public static final double kShootRpm = -4000;
+      public static final double kShootRpm = -6000;
       public static final double kVelocityTolerance = 100;
     }
   }

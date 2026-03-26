@@ -74,13 +74,13 @@ public class RobotContainer {
       new JoystickButton(m_driverController, XboxController.Button.kX.value).whileTrue(new RunCommand(
         () -> m_robotDrive.setX(),m_robotDrive));
 
-        Trigger rTrigger = new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0.5);
+        Trigger rTrigger = new Trigger(() -> m_driverController.getRightTriggerAxis() > 0.5);
         rTrigger.whileTrue(new OutIntake(m_intake));
 
         Trigger rbumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
         rbumper.whileTrue(new InIntake(m_intake));
 
-        Trigger lTrigger = new Trigger(() -> m_driverController.getRightTriggerAxis() > 0.5);
+        Trigger lTrigger = new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0.5);
         lTrigger.whileTrue(new Launchfuel(m_internal));
 
         Trigger lbumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
