@@ -5,12 +5,15 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AutoLaunchBot;
 import frc.robot.commands.InIntake;
 import frc.robot.commands.Launchfuel;
 import frc.robot.commands.OutIntake;
 import frc.robot.commands.Startlauncher;
 import frc.robot.subsystems.DriveSubsystem;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -35,6 +38,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Intake m_intake = new Intake();
   private final Internal m_internal = new Internal();
+  private final AutoLaunchBot autolaunchbot = new AutoLaunchBot(m_internal);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final XboxController m_driverController =
       new XboxController(OperatorConstants.kDriverControllerPort);
@@ -47,6 +51,7 @@ public class RobotContainer {
     // Build an auto chooser. This will use Commands.none() as the default option.
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
+    NamedCommands.registerCommand("autolaunchbot", autolaunchbot);
 
     // Configure the trigger bindings
     configureBindings();
