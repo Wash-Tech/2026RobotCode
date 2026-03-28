@@ -1,0 +1,49 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Internal;
+import frc.robot.Constants;
+
+public class Launchfuel extends Command {
+    private final Internal m_Internal;
+
+  public Launchfuel(Internal subsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    m_Internal = subsystem;
+    addRequirements(m_Internal);
+  }
+    
+
+ // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    //m_intake.grabPosition();
+  }
+
+  @Override
+  public void execute() {
+    m_Internal.spinLauncher(Constants.ShooterSubsystemConstants.FlywheelSetpoints.kShootRpm);
+    m_Internal.spinConveyor(Constants.InternalConstants.kConveyorSpeed);
+    m_Internal.spinLoader(Constants.InternalConstants.kLoaderSpeed);
+  }
+
+
+ // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+    //m_Internal.spinLauncher(0);
+    //attempting to let the flywheel spin down.
+    m_Internal.stopmotors();
+    m_Internal.spinConveyor(0);
+    m_Internal.spinLoader(0);
+    //do we this?
+
+   }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
+
+}
